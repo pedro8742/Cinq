@@ -36,8 +36,12 @@ module.exports = (sequelize) => {
     },
   });
 
-  // Relacionamento N para 1 com o modelo User
-  Gasto.belongsTo(sequelize.models.User);
+  Gasto.belongsTo(sequelize.models.User, {
+    foreignKey: {
+      name: "UserId", // nome da chave estrangeira na tabela Gastos
+      allowNull: false,
+    },
+  });
 
   return Gasto;
 };
