@@ -23,3 +23,7 @@ npm run sequelize db:create
 
 depois o código abaixo
 npm run sequelize db:migrate
+
+4º Passo - para dar start no sistema execute o código abaixo
+
+npm start
