@@ -16,7 +16,7 @@ exports.createUser = async (req, res) => {
     const user = await User.create(req.body);
     res.json(user);
   } catch (error) {
-    console.error('Erro ao criar usuário:', error);
+    console.error("Erro ao criar usuário:", error);
     res.status(500).json({ error: "Erro ao criar usuário" });
   }
 };
@@ -57,16 +57,19 @@ exports.updateUser = async (req, res) => {
 // Exclui um usuário
 exports.deleteUser = async (req, res) => {
   const { id } = req.params;
+
   try {
-    const deleted = await User.destroy({
-      where: { id },
-    });
-    if (deleted) {
-      res.json({ message: "Usuário excluído com sucesso" });
-    } else {
-      res.status(404).json({ error: "Usuário não encontrado" });
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(404).json({ error: "Usuário não encontrado" });
     }
+
+    await user.update({ ativo: false });
+
+    res.json({ message: "Usuário marcado como inativo (soft delete)" });
   } catch (error) {
-    res.status(500).json({ error: "Erro ao excluir usuário" });
+    console.error("Erro ao marcar usuário como inativo:", error);
+    res.status(500).json({ error: "Erro ao marcar usuário como inativo" });
   }
 };
