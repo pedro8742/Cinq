@@ -1,6 +1,7 @@
 // models/gasto.js
 
 const { DataTypes } = require("sequelize");
+import User from './user';
 
 module.exports = (sequelize) => {
   const Gasto = sequelize.define("Gasto", {
@@ -36,18 +37,9 @@ module.exports = (sequelize) => {
     },
   });
 
-  Gasto.belongsTo(sequelize.models.User, {
-    foreignKey: {
-      name: "UserId", // nome da chave estrangeira na tabela Gastos
-      allowNull: false,
-    },
-  });
-  User.hasMany(sequelize.models.Gasto, {
-    foreignKey: {
-      name: "UserId", // nome da chave estrangeira na tabela Gastos
-      allowNull: false,
-    },
-  });
+  Gasto.belongsTo(User, {
+    constraint: true,
+    foreingKey: 'UserId'})
 
   return Gasto;
 };
