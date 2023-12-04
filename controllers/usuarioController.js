@@ -1,9 +1,9 @@
-const { Usuario } = require("../models");
+const { User } = require("../models");
 
 // Lista todos os usuários
 exports.listUsers = async (req, res) => {
   try {
-    const users = await Usuario.findAll();
+    const users = await User.findAll();
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: "Erro ao buscar usuários" });
@@ -13,9 +13,10 @@ exports.listUsers = async (req, res) => {
 // Cria um novo usuário
 exports.createUser = async (req, res) => {
   try {
-    const user = await Usuario.create(req.body);
+    const user = await User.create(req.body);
     res.json(user);
   } catch (error) {
+    console.error('Erro ao criar usuário:', error);
     res.status(500).json({ error: "Erro ao criar usuário" });
   }
 };
@@ -24,7 +25,7 @@ exports.createUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await Usuario.findByPk(id);
+    const user = await User.findByPk(id);
     if (user) {
       res.json(user);
     } else {
@@ -43,7 +44,7 @@ exports.updateUser = async (req, res) => {
       where: { id },
     });
     if (updated) {
-      const updatedUser = await Usuario.findByPk(id);
+      const updatedUser = await User.findByPk(id);
       res.json(updatedUser);
     } else {
       res.status(404).json({ error: "Usuário não encontrado" });
@@ -57,7 +58,7 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
-    const deleted = await Usuario.destroy({
+    const deleted = await User.destroy({
       where: { id },
     });
     if (deleted) {
