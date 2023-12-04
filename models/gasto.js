@@ -42,6 +42,12 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
   });
+  User.hasMany(sequelize.models.Gasto, {
+    foreignKey: {
+      name: "UserId", // nome da chave estrangeira na tabela Gastos
+      allowNull: false,
+    },
+  });
 
   return Gasto;
 };
