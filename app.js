@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const userRoutes = require("./routes/usuarioRoutes");
+const userRoutes = require("./routes/usuarioRoutes.js");
 
 /*
 app.get("/", (req, res) => {
