@@ -1,6 +1,7 @@
 // models/notificacao.js
 
 const { DataTypes } = require("sequelize");
+const { User } = require("./user");
 
 module.exports = (sequelize) => {
   const Notificacao = sequelize.define("Notificacao", {
@@ -24,8 +25,12 @@ module.exports = (sequelize) => {
     },
   });
 
-  // Relacionamento N para 1 com o modelo User
-  Notificacao.belongsTo(sequelize.models.User);
+  //Notificacao.belongsTo(sequelize.models.User);
+  Notificacao.belongsTo(User, {
+    constraint: true,
+    foreignKey: "UserId",
+  });
+  User.hasMany(Notificacao, { foreignKey: "UserId" });
 
   return Notificacao;
 };

@@ -1,6 +1,7 @@
 // models/metaFinanceira.js
 
 const { DataTypes } = require("sequelize");
+const { User } = require("./user");
 
 module.exports = (sequelize) => {
   const MetaFinanceira = sequelize.define("MetaFinanceira", {
@@ -27,8 +28,11 @@ module.exports = (sequelize) => {
     },
   });
 
-  // Relacionamento N para 1 com o modelo User
-  MetaFinanceira.belongsTo(sequelize.models.User);
+  MetaFinanceira.belongsTo(User, {
+    constraint: true,
+    foreignKey: "UserId",
+  });
+  User.hasMany(MetaFinanceira, { foreignKey: "UserId" });
 
   return MetaFinanceira;
 };
