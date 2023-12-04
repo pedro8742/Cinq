@@ -54,7 +54,7 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// Exclui um usuário
+// Exclui falso um usuário
 exports.deleteUser = async (req, res) => {
   const { id } = req.params;
 
@@ -73,3 +73,20 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ error: "Erro ao marcar usuário como inativo" });
   }
 };
+
+// Exclui de verdade um usuário
+/* exports.deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleted = await User.destroy({
+      where: { id },
+    });
+    if (deleted) {
+      res.json({ message: 'Usuário excluído com sucesso' });
+    } else {
+      res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao excluir usuário' });
+  }
+}; */
