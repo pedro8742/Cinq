@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "@Deradhevil021194",
+    "password": null,
     "database": "cinq_development",
     "host": "localhost",
     "dialect": "mysql"
